@@ -1,0 +1,77 @@
+<?php
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/paginacja.css');
+
+if($this->pageCount){
+?>
+
+<table>
+  <tr>
+  
+    <!-- przycisk poprzednia -->
+    <?php
+    if(isset($this->previous)){
+    ?>
+    
+      <td class="paginacja">
+        <a href="?i=1"> |&lt;</a>
+      </td>
+      <td class="paginacja">
+        <a href="?i=<?php echo $this->previous; ?>"> &lt;&lt;</a>
+      </td>
+    
+    <?php
+    } // koniec if(isset($this->previous))
+    ?>
+    
+    <!-- dostępne strony -->
+    <?php
+    foreach($this->pagesInRange as $strona){
+      if($strona != $this->current){
+    ?>  
+      
+      <td class="paginacja">
+        <a href="?i=<?php echo $strona; ?>">
+          <?php echo $strona; ?>
+        </a>
+      </td>
+      
+      <?php
+      } //koniec if($strona != $this->current)
+      else {
+      ?>
+      
+        <td class="paginacja">
+          <b style="font-size:16px;"><?php echo $this->current; ?></b> 
+        </td>  
+      
+    <?php
+      } //koniec else
+    } //koniec foreach($this->pagesInRange as $strona)
+    ?>
+    
+    <!--  przycisk następna -->
+    <?php
+    if(isset($this->next)){
+    ?>
+    
+      <td class="paginacja">
+        <a href="?i=<?php echo $this->next; ?>">
+          &gt;&gt;
+        </a>
+      </td>
+      <td class="paginacja">
+        <a href="?i=<?php echo $this->pageCount; ?>"> &gt;|
+        </a>
+      </td>   
+    
+    <?php
+    } //koniec if(isset($this->next))
+    ?>
+  
+  </tr>
+  
+</table>
+
+<?php
+} //koniec if($this->pageCount)
+?>

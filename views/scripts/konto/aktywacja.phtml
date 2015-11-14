@@ -1,0 +1,40 @@
+<?php
+$this->headTitle("CzytajWNET.pl - Aktywacja Konta");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/konto/aktywacja.css');
+
+
+//Sprawdzenie flagi aktywacyjnej (zmiennej widoku)
+if($this->aktywowany){?>
+
+<h3>Aktywacja konta CzytajWNET.pl</h3>
+
+<p>
+Witamy w serwisie <b>CzytajWNET.pl</b>!<br />
+<b>Twoje konto</b> zostało poprawnie aktywowane. Już teraz możesz dodawać nowe 
+dokumenty oraz przeglądać istniejące.<br />
+Życzymy miłej lektury.<br /><br />
+<hr class="podpis" />Zespół <b>CzytajWNET.pl</b>
+</p>
+
+<p id="logowanie">
+  <a href="loguj">Przejdź do logowania</a>
+</p>
+
+<?php  
+} // koniec if($this->aktywowany)
+else {
+?>
+
+<p>
+Przepraszamy. Proces aktywacyjny nie został zakończony. Prosimy o ponowienie 
+tego etapu aktywacji w późniejszym terminie. 
+</p>
+<p>
+Pamiętaj: <b>aktywacji można dokonać tylko raz!</b>
+</p>
+<p id="rejestracja">
+  <a href="nowy">Załóż <b>nowe konto</b></a>
+</p>
+<?php
+} //koniec else
+?>

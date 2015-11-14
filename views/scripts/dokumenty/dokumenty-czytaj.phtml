@@ -1,0 +1,131 @@
+<?php
+require_once "Autoryzacja/Autoryzacja.php";
+$sesja = Autoryzacja::kontynuujSesje();
+
+$this->headTitle("CzytajWNET.pl - Odczytywanie dokumentu");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/dokumenty/dokumenty-czytaj.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/dokumentyUzytkownika.css');
+
+if(!$this->bledy){
+
+  $nazwa = trim($this->nazwa, "\'");
+  $lokalizacja = $_SERVER['DOCUMENT_ROOT'] . '/public/uzytk/' . $this->uId . '/dokumenty/';
+  $plik = $lokalizacja . $nazwa;
+  
+  try{
+    
+    //załadownie istniejącego pliku pdf
+    $pdf = new Zend_Pdf($plik, null, true);
+    //$pdf = Zend_Pdf::load($plik);
+    
+    
+    $bledyPdf = false;
+    
+  }catch(Zend_Pdf_Exception $e){
+    
+    //echo $e->getMessage();
+    $bledyPdf = true;
+  
+  }
+  
+  if(!$bledyPdf){ 
+    //utworzenie nowego dokumentu pdf
+    $pdfNowy = new Zend_Pdf();
+    
+    $ileStron = count($pdf->pages) -1;
+    $sesja->maxStron = $ileStron;
+    
+    if(!isset($sesja->strona)){
+      $sesja->strona = 0;  
+    }else if($sesja->strona >= $ileStron){
+      $sesja->strona = $ileStron;
+    }else if($sesja->strona <= 0){
+      $sesja->strona = 0;
+    }
+    
+    //sklonowanie strony
+    $stronaNowa = clone $pdf->pages[$sesja->strona];
+    //pobranie parametrów strony
+    $wys = $stronaNowa->getHeight() - 150; 
+    $szer = $stronaNowa->getWidth();
+    //ustawienie czcionki
+    $font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA);
+    $stronaNowa->setFont($font, 20);
+    //ustalenie koloru
+    $szary = new Zend_Pdf_Color_GrayScale(0.0);
+    $stronaNowa->setFillColor($szary);
+    //dodanie tekstu
+    $stronaNowa->drawText('CzytajWnet.pl', 230, $wys+20, 'UTF-8');
+    $stronaNowa->drawText('CzytajWnet.pl', 230, 120, 'UTF-8');
+    
+    //dodanie strony do nowego dokumentu
+    $pdfNowy->pages[] = $stronaNowa;    
+    
+    //zapis nowego pliku pod tymczasową nazwą
+    $lokalizacja = $_SERVER['DOCUMENT_ROOT'] . '/public/tmp/';
+    $nazwaPliku = "tmp_" . $sesja->id . ".pdf";
+    $pdfNowy->save($lokalizacja.$nazwaPliku); 
+  
+    ?>
+    
+    <div id="dokNav">
+    
+    <table class="dokNavWew">
+      <tr>
+        
+        <?php if($sesja->strona <= 0) {?><td class="dokNawKom"></td>
+          <td class="dokNawKom"></td><?php }else{?>
+       <td class="dokNawKom"><a class="cdPaginacja" id="cdPoczatek" href="<?php echo $this->url(array( 'controller' => 'dokumenty', 'action' => 'dokumenty-czytaj', 'dokument' => $this->id, 'str' => 'pa' ), 'default', true ); ?>"></a></td>
+        <td class="dokNawKom"><a class="cdPaginacja" id="cdPoprzednia" href="<?php echo $this->url(array( 'controller' => 'dokumenty', 'action' => 'dokumenty-czytaj', 'dokument' => $this->id, 'str' => 'p' ), 'default', true ); ?>"></a></td>
+        <?php }?>
+        
+        
+        <td class="dokNawKom">
+          <form action="<?php echo $this->nrStronyForm->getAction(); ?>"
+            method="<?php echo $this->nrStronyForm->getMethod(); ?>">
+          <table class="dokNavWew">
+            <tr>
+              <td class="dokNawKom"><?php echo $this->nrStronyForm->nrStrony;?></td>
+              <td class="dokNawKom"><p class="nrStrony">/<?php echo ($ileStron + 1);?></p></td>
+            </tr>
+          </table>
+          </form>
+        </td>
+            
+        <?php if($sesja->strona >= $ileStron) {?><td class="dokNawKom"></td>
+          <td class="dokNawKom"></td><?php }else{?>
+        <td class="dokNawKom"><a class="cdPaginacja" id="cdNastepna" href="<?php echo $this->url(array( 'controller' => 'dokumenty', 'action' => 'dokumenty-czytaj', 'dokument' => $this->id, 'str' => 'n' ), 'default', true ); ?>"></a></td>
+        <td class="dokNawKom"><a class="cdPaginacja" id="cdOstatnia" href="<?php echo $this->url(array( 'controller' => 'dokumenty', 'action' => 'dokumenty-czytaj', 'dokument' => $this->id, 'str' => 'o' ), 'default', true ); ?>"></a></td>
+        <?php }?>  
+      </tr>
+    </table>
+        
+    </div>
+    
+    <center>
+    <iframe name="widokPdf" id="widokPdf"
+      src="<?php echo $this->baseUrl() .
+        '/tmp/' . 'tmp_' . $sesja->id . '.pdf' . 
+        '#toolbar=0&scrollbar=0&statusbar=0&navpanes=0&pagemode=bookmarks&messages=0';?>
+      ">
+    </iframe>
+    </center>
+    
+<?php 
+  }else{?>
+  
+    <h3>Wersja pliku pdf nie jest obecnie obsługiwana.</h3>
+    
+<?php  
+  }
+} //koniec if(!$this->bledy)
+else{
+?>
+
+<h3>Dokument został zablokowany przez Użytkownika.</h3>
+
+<?php
+//echo $this->bledyBazy;
+
+}
+?>

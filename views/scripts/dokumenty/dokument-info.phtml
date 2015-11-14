@@ -1,0 +1,100 @@
+<?php
+require_once "Autoryzacja/Autoryzacja.php";
+$sesja = Autoryzacja::kontynuujSesje();
+
+$this->headTitle("CzytajWNET.pl - Informacje o dokumencie");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/dokumenty/dokument-info.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/dokumenty/dokumenty-pokaz.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/dokumentyUzytkownika.css');
+
+$info = $this->dokumentInfo;
+
+/************************************************
+  "id" => 'id', //niezbędne do wyświetlenia dokumentu
+  "uid" => 'uzytkownik_id',
+  "tytuł" => 'tytul',
+  "nazwa" => 'nazwa',
+  "data dodania" => 'data_dodania',
+  "ostatnia modyfikacja" => 'ostatnia_modyfikacja',
+  "autor" => 'autor',
+  "przedmiot" => 'przedmiot',
+  "rodzaj" => 'rodzaj',
+  "isbn" => 'isbn',
+  "wydawnictwo" => 'wydawnictwo',
+  "rok wydania" => 'rok_wydania',
+  "tagi" => 'tagi',
+  "opis" => 'opis',
+  "dostępność" => 'dostepnosc',
+  "wyświetleń" => 'ilosc_wyswietlen' 
+************************************************/  
+
+?>
+
+<h3>Informacje o dokumencie</h3>
+
+<table id="diDokumentInfo">
+
+  <?php foreach($info as $wlasciwosc => $opis){?>    
+    <?php 
+      if( (trim($wlasciwosc, "\'") != 'id' ) &&
+        (trim($wlasciwosc, "\'") != 'nazwa' ) &&
+        (trim($wlasciwosc, "\'") != 'uid' ) ){ ?>
+    <tr>
+      <td class="diWlasciwosc"><b>
+      <?php 
+      if(trim($wlasciwosc, "\'") == 'login'){
+        echo "Użytkownik";
+      }else{
+        echo trim($wlasciwosc, "\'"); 
+      }?> 
+      </b></td>
+      <td class="diOpis">
+    <?php
+    if(trim($wlasciwosc, "\'") == 'login'){?>
+      <a href ="<?php echo $this->url(array( 'controller' => 'profil', 'action' => 'pokaz-publiczny-profil', 'uzytkownik' => trim($opis, "\'")  ), 'default', true ); ?>">
+      <?php echo trim($opis, "\'"); ?></a>
+    <?php
+    }else{
+      //rodzaj dokumentu
+      if(trim($opis, "\'") == 'material_dyd' ){
+        echo "materiały dydaktyczne";
+      }else if(trim($opis, "\'") == 'ksiazka' ){
+        echo "książki";
+      }else if(trim($opis, "\'") == 'czasopismo' ){
+        echo "czasopisma";
+      }else if(trim($opis, "\'") == 'wyklad' ){
+        echo "wykłady";
+      }else if(trim($opis, "\'") == 'felieton' ){
+        echo "felietony";
+      }else if(trim($opis, "\'") == 'prezentacja' ){
+        echo "prezentacje";
+      }else
+      
+      //dostępność dokumentu
+      if(trim($opis, "\'") == 'czyt' ){?>
+       
+        <a id="dokumentCzytaj" title="czytaj" href="<?php echo $this->url(array( 'controller' => 'dokumenty', 'action' => 'dokumenty-czytaj', 'dokument' => $info['id'] ), 'default', true ); ?>"></a>
+
+      <?php                                  
+      }else if(trim($opis, "\'") == 'pob' ){?>
+ 
+        <a id="dokumentCzytaj" title="czytaj" href="<?php echo $this->url(array( 'controller' => 'dokumenty', 'action' => 'dokumenty-czytaj', 'dokument' => $info['id'] ), 'default', true ); ?>"></a>
+        <a id="dokumentPobierz" title="pobierz" href="<?php echo $this->url(array( 'controller' => 'dokumenty', 'action' => 'dokument-pobierz', 'dok' => $info['id'] ), 'default', true ); ?>"></a>
+       
+      <?php                                  
+      }else if(trim($opis, "\'") == 'brak' ){
+        echo "zablokowany";
+      }else{
+        echo trim($opis, "\'");
+      }        
+      ?>
+      </td>
+    </tr>
+      <?php
+      
+        } 
+      }
+    }
+    ?>
+
+</table>

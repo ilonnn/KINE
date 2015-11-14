@@ -1,0 +1,66 @@
+<?php
+//kontynuacja sesji logowania
+require_once "Autoryzacja/Autoryzacja.php";
+$sesja = Autoryzacja::kontynuujSesje();
+
+
+//Wyświetlenie zawartości menu tylko dla zalogowanych Użytkowników
+if($sesja->zalogowany){
+
+?>
+
+<!-- ******************* -->
+<div class="pozycjaMenu">
+    <a class="pozycjaMenu" id="stronaGlowna" href="<?php echo $this->url(array( 'controller' => 'index', 'action' => 'index' ), 'default', true ); ?>">  
+      Główna
+    </a>
+</div>
+
+<!-- ******************* -->
+<div class="pozycjaMenu">
+    <a class="pozycjaMenu" id="profilUzytkownika" href="<?php echo $this->url(array( 'controller' => 'profil', 'action' => 'profil-menu' ), 'default', true ); ?>">  
+      Profil
+    </a>
+</div>
+
+<!-- ******************* -->
+<div class="pozycjaMenu">
+    <a class="pozycjaMenu" id="dokumentyUzytkownika" href="<?php echo $this->url(array( 'controller' => 'dokumenty', 'action' => 'dokumenty-menu' ), 'default', true ); ?>">  
+      Dokumenty
+    </a>
+</div>
+
+<!-- ******************* -->
+<div class="pozycjaMenu">
+    <a class="pozycjaMenu" id="szukaj" href="<?php echo $this->url(array( 'controller' => 'szukaj', 'action' => 'szukaj-menu' ), 'default', true ); ?>">  
+      Szukaj
+    </a> 
+</div>
+
+<!-- ******************* -->
+<div class="pozycjaMenu">
+    <a class="pozycjaMenu" id="wiadomosciUzytkownika" href="<?php echo $this->url(array( 'controller' => 'poczta', 'action' => 'poczta-menu' ), 'default', true ); ?>">  
+      Wiadomości
+    </a> 
+</div>
+
+<!-- ******************* -->
+<div class="pozycjaMenu">
+    <a class="pozycjaMenu" id="pomoc" href="<?php echo $this->url(array( 'controller' => 'pomoc', 'action' => 'index' ), 'default', true ); ?>">  
+      Pomoc
+    </a>
+</div>
+
+<?php
+} // koniec if($sesja->zalogowany)
+else{
+?>
+
+<!-- ******************* -->
+<div class="pozycjaMenu">
+      Musisz być zalogowany, aby korzystać z menu
+      <a class="pozycjaMenu" href="<?php echo $this->url(array( 'controller' => 'konto', 'action' => 'loguj' ), 'default', true ); ?>">logowanie</a>
+      <a class="pozycjaMenu" href="<?php echo $this->url(array( 'controller' => 'konto', 'action' => 'nowy' ), 'default', true ); ?>">nowe konto</a> 
+</div>
+
+<?php } ?>

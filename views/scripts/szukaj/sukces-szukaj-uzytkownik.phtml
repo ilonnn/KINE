@@ -1,0 +1,85 @@
+<?php
+require_once "Autoryzacja/Autoryzacja.php";
+$sesja = Autoryzacja::kontynuujSesje();
+
+$this->headTitle("CzytajWNET.pl - Wyniki wyszukiwania");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/szukaj/sukces-szukaj-uzytkownik.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/szukaj.css');
+
+if($this->bledy){
+?>
+
+<h3>Niepoprawne dane wyszukiwania.</h3>
+
+<table id="wynikiWyszukiwania">
+
+<form action="<?php echo $this->formularz->getAction(); ?>"
+  method="<?php echo $this->formularz->getMethod(); ?>">
+
+<tr>
+  <td colspan="2">
+    <?php echo $this->formularz->wyszukajUzytkownika; ?>
+  </td>
+  <td>
+    <?php echo $this->formularz->submit; ?>
+  </td>
+</tr>
+
+</form>
+
+</table>
+
+<?php
+} else{?>
+
+<h3>Wyniki wyszukiwania</h3>
+<table id="suUzytkownicy">
+
+  <tr>
+    <th class="id">Lp.</th>
+    <th class="id">login</th>
+    <th class="id">imię</th>
+    <th class="id">nazwisko</th>
+    <th class="id">opis</th>
+    <th class="id">avatar</th>
+    <th class="id">dołączył</th>
+    <th class="id">operacje</th>
+  </tr>
+
+<?php 
+  if(isset($this->uzytkownicy)){
+    $i = 1;
+    foreach($this->uzytkownicy as $uzytk){ ?>
+
+      <tr>
+        <td class="id"><?php echo $i; ?></td>
+        <td class="id">
+          <a href ="<?php echo $this->url(array( 'controller' => 'profil', 'action' => 'pokaz-publiczny-profil', 'uzytkownik' => trim($uzytk['login'], "\'")  ), 'default', true ); ?>">
+            <?php echo trim($uzytk['login'], "\'"); ?>
+        </a></td>
+        <td class="id"><?php if(!empty($uzytk['imie'])){ echo trim($uzytk['imie'], "\'");}else{ echo "<i>brak</i>"; } ?></td>
+        <td class="id"><?php if(!empty($uzytk['nazwisko'])){ echo trim($uzytk['nazwisko'], "\'");}else{ echo "<i>brak</i>"; } ?></td>
+        <td class="id"><?php if(!empty($uzytk['opis'])){ echo trim($uzytk['opis'], "\'");}else{ echo "<i>brak</i>"; } ?></td>
+        <td class="id">
+          <?php
+          if(!empty($uzytk['avatar'])){
+            echo "<img src=\"". $this->baseUrl() ."/uzytk/". trim($uzytk['id'], "\'") ."/avatar/". trim($uzytk['avatar'], "\'") ."\" alt=\"avatar\" height=\"40px\" />";
+          }else{
+            echo "<i>brak</i>";
+          }
+          ?></td>
+        <td class="id"><?php echo trim($uzytk['dolaczyl'], "\'"); ?></td>
+        <th class="id">
+          <a href="<?php echo $this->url(array( 'controller' => 'poczta', 'action' => 'dodaj-do-listy-odbiorcow', 'uzytkownik' => trim($uzytk['login'], "\'")  ), 'default', true ); ?>">
+          Dodaj do listy odbiorców wiadomości</a>
+        </th>
+      </tr>
+
+
+<?php
+      $i++;
+    }
+  }  
+} ?>
+</table>
+  

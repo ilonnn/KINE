@@ -1,0 +1,59 @@
+<?php
+
+$this->headTitle("CzytajWNET.pl - Menu Dokumenty");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/podMenu.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/dokumentyUzytkownika.css');
+
+?>
+
+<table class="profilMenu">
+<tr>
+  <td class="pmPolecenieIkona">
+  <a id="mojeDokumenty"  href ="<?php echo $this->url(array( 'controller' => 'dokumenty', 'action' => 'dokumenty-pokaz' ), 'default', true ); ?>"></a>
+  </td>
+  <td class="pmPolecenieLacze">
+    <a href ="<?php echo $this->url(array( 'controller' => 'dokumenty', 'action' => 'dokumenty-pokaz' ), 'default', true ); ?>">
+    Pokaż moje dokumenty</a>
+  </td>
+  <td class="pmPolecenieOpis">
+    Wyświetla dodane przez Ciebie dokumenty.
+  </td>
+</tr>
+<tr>
+  <td class="pmPolecenieIkona">
+  <a id="dodajDokument" href ="<?php echo $this->url(array( 'controller' => 'dokumenty', 'action' => 'dokumenty-dodaj' ), 'default', true ); ?>"></a>
+  </td>
+  <td class="pmPolecenieLacze">
+    <a href ="<?php echo $this->url(array( 'controller' => 'dokumenty', 'action' => 'dokumenty-dodaj' ), 'default', true ); ?>">
+    Dodaj nowe dokumenty</a>
+  </td>
+  <td class="pmPolecenieOpis">
+    Umożliwia dodawanie nowych dokumentów.
+  </td>
+</tr>
+<tr>
+  <td class="pmPolecenieIkona">
+  <a id="edytujDokumenty" href ="<?php echo $this->url(array( 'controller' => 'dokumenty', 'action' => 'dokumenty-edytuj' ), 'default', true ); ?>"></a>
+  </td>
+  <td class="pmPolecenieLacze">
+    <a href ="<?php echo $this->url(array( 'controller' => 'dokumenty', 'action' => 'dokumenty-edytuj' ), 'default', true ); ?>">
+    Edytuj właściwości dokumentów</a>
+  </td>
+  <td class="pmPolecenieOpis">
+    Umożliwia zmianę właściwości dokumentów.
+  </td>
+</tr>
+<tr>
+  <td class="pmPolecenieIkona">
+  <a id="usunDokumenty" href ="<?php echo $this->url(array( 'controller' => 'dokumenty', 'action' => 'dokumenty-usun' ), 'default', true ); ?>"></a>
+  </td>
+  <td class="pmPolecenieLacze">
+    <a href ="<?php echo $this->url(array( 'controller' => 'dokumenty', 'action' => 'dokumenty-usun' ), 'default', true ); ?>">
+    Usuń wybrane dokumenty</a>
+  </td>
+  <td class="pmPolecenieOpis">
+    Umożliwia usunięcie wybranych dokumentów.
+  </td>
+</tr>
+
+</table>

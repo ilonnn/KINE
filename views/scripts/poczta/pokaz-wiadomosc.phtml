@@ -1,0 +1,48 @@
+<?php
+require_once "Autoryzacja/Autoryzacja.php";
+$sesja = Autoryzacja::kontynuujSesje();
+
+$this->headTitle("CzytajWNET.pl - Odczytywanie wiadomości");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/poczta/pokaz-wiadomosc.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/wiadomosciUzytkownika.css');
+
+if(!empty($this->wiadomosc)){
+
+?>
+
+<h3>Zawartość wiadomości</h3>
+
+<table id="poPokazWiadomosc">
+
+<tr>
+  <td class="poPwEtykieta">Nadawca:</td>
+  <td class="poPwWartosc"><?php echo trim($this->wiadomosc[0]['nadawca'], "\'");?></td>
+</tr>
+<tr>
+  <td class="poPwEtykieta">Odbiorca:</td>
+  <td class="poPwWartosc"><?php echo trim($this->wiadomosc[0]['odbiorca'], "\'");?></td>
+</tr>
+<tr>
+  <td class="poPwEtykieta">Temat:</td>
+  <td class="poPwWartosc"><?php echo trim($this->wiadomosc[0]['temat'], "\'");?></td>
+</tr>
+<tr>
+  <td class="poPwEtykieta">Treść:</td>
+  <td class="poPwWartosc"><?php echo trim($this->wiadomosc[0]['tresc'], "\'");?></td>
+</tr>
+<tr>
+  <td class="poPwEtykieta">Data wysłania:</td>
+  <td class="poPwWartosc"><?php echo trim($this->wiadomosc[0]['wyslano'], "\'");?></td>
+</tr>
+
+</table>
+
+<?php
+}else{
+?>
+
+<h3>Wiadomość jest niedostępna.</h3>
+
+<?php
+}
+?>

@@ -1,0 +1,79 @@
+<?php
+echo '<?xml version="1.0" encoding="UTF-8" ?>';
+echo $this->doctype('XHTML1_STRICT');
+?>
+
+<html> 
+
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+    
+    <?php
+    //dodanie tytułu strony
+    echo $this->headTitle();
+    
+    //dołączenie skryptów javascript
+    $this->headScript()->appendFile($this->baseUrl() . '/js/jquery.js', 'text/javascript');
+    $this->headScript()->appendFile($this->baseUrl() . '/js/layout/layout.js', 'text/javascript');
+    echo $this->headScript();
+    
+    //dodanie łącza do arkusza CSS
+    $this->headLink()
+                  ->appendStylesheet( $this->baseUrl() . '/css/layout/layout.css')
+                  ->appendStylesheet( $this->baseUrl() . '/css/layout/menuGlowne.css')
+                  ->appendStylesheet( $this->baseUrl() .  '/css/layout/naglowek.css')
+                  ->headLink(array('rel' => 'icon','href' => $this->baseUrl() . '/img/cnikona.ico'),'PREPEND');
+    echo $this->headLink();
+    ?>
+    
+    
+</head> 
+
+<body>
+
+<div id="glownyBox"> 
+  
+  <!-- ****************************** sekcja nagłówkowa, główny banner, logo -->
+  <div class="ukryjNaglowek">  
+    <p id="ukryjPokazNaglowek">&and;</p>
+  </div> 
+  <div id="naglowek">  
+    <?php
+      $this->layout()->naglowek = $this->render('layout/naglowek.phtml');
+      echo $this->layout()->naglowek;
+    ?>
+  </div>
+  
+  <!-- ******************************************* sekcja menu nawigacyjnego -->
+  <div class="ukryjMenu">  
+      <p id="ukryjPokazMenu">&and;</p>
+  </div> 
+  <div id="nawigacja">
+    <?php 
+      $this->layout()->nawigacja = $this->render('layout/menuGlowne.phtml');
+      echo $this->layout()->nawigacja;
+    ?>&nbsp; 
+  </div>
+  
+  
+  <!-- ********************************** sekcja z główną zawartością strony -->
+  <div id="zawartosc">
+    <div id="gradientGora"></div> 
+    <?php echo $this->layout()->content;?>&nbsp; 
+    <div id="gradientLewyDol"></div> 
+    <div id="gradientPrawyDol"></div> 
+  </div>
+  
+  <!-- ******************************************************* sekcja stopki -->
+  <div class="ukryjStopka">  
+      <p id="ukryjPokazStopka">&and;</p>
+  </div> 
+  <div id="stopka"> 
+    <p class="stopkaHaslo"><b>CzytajWNET.pl</b> - miejsce na Twoje publikacje</p>
+    <p class="stopkaCopy">&copy Cypyright 2012</p> 
+  </div>
+
+</div>  
+
+</body> 
+</html> 

@@ -1,0 +1,35 @@
+<?php
+
+$this->headTitle("CzytajWNET.pl - Menu Wyszukiwania");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/podMenu.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/szukaj.css');
+
+?>
+
+<table class="profilMenu">
+<tr>
+  <td class="pmPolecenieIkona">
+  <a id="szukajDokument" href ="<?php echo $this->url(array( 'controller' => 'szukaj', 'action' => 'szukaj-dokument' ), 'default', true ); ?>"></a>
+  </td>
+  <td class="pmPolecenieLacze">
+    <a href ="<?php echo $this->url(array( 'controller' => 'szukaj', 'action' => 'szukaj-dokument' ), 'default', true ); ?>">
+    Znajdź dokument</a>
+  </td>
+  <td class="pmPolecenieOpis">
+    Umożliwia wyszukiwanie dokumentów.
+  </td>
+</tr>
+<tr>
+  <td class="pmPolecenieIkona">
+  <a id="szukajUzytkownika" href ="<?php echo $this->url(array( 'controller' => 'szukaj', 'action' => 'szukaj-uzytkownik' ), 'default', true ); ?>"></a>
+  </td>
+  <td class="pmPolecenieLacze">
+    <a href ="<?php echo $this->url(array( 'controller' => 'szukaj', 'action' => 'szukaj-uzytkownik' ), 'default', true ); ?>">
+    Znajdź Użytkownika</a>
+  </td>
+  <td class="pmPolecenieOpis">
+    Umożliwia wyszukiwanie Użytkowników.
+  </td>
+</tr>
+
+</table>

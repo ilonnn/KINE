@@ -1,0 +1,94 @@
+<?php
+require_once "Autoryzacja/Autoryzacja.php";
+$sesja = Autoryzacja::kontynuujSesje();
+
+$this->headTitle("CzytajWNET.pl - Edycja dokumentów");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/dokumenty/dokumenty-edytuj.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/dokumentyUzytkownika.css');
+
+?>
+
+
+<h3>Edycja dokumentów</h3>
+
+<form action="<?php echo $this->formularz->getAction(); ?>"
+  method="<?php echo $this->formularz->getMethod(); ?>">
+
+<table id="deFormularzEdycjiDokumentow">
+<tr>
+  <td class="dePoleEdycji"><?php echo $this->formularz->listaDokumentow; ?></td>
+  <td class="dePoleOpisu"><p class="deOpisPolaEdycji">
+  Wybierz z listy rozwijanej dokument, którego właściwości będziesz edytował.
+  </p></td>
+</tr>
+<tr>
+  <td class="dePoleEdycji"><?php echo $this->formularz->dokumentTytul; ?></td>
+  <td class="dePoleOpisu"><p class="deOpisPolaEdycji">
+  Wprowadź tytuł dokumentu (max. <b>200</b> znaków).
+  </p></td>
+</tr>
+<tr>
+  <td class="dePoleEdycji"><?php echo $this->formularz->dokumentAutor; ?></td>
+  <td class="dePoleOpisu"><p class="deOpisPolaEdycji">
+  Wprowadź autora dokumentu (max. <b>100</b> znaków). 
+  </p></td>
+</tr>
+<tr>
+  <td class="dePoleEdycji"><?php echo $this->formularz->dokumentPrzedmiot; ?></td>
+  <td class="dePoleOpisu"><p class="deOpisPolaEdycji">
+  Wprowadź nazwę przedmiotu właściwą dla dokumentu (max. <b>150</b> znaków).
+  </p></td>
+</tr>
+<tr>
+  <td class="dePoleEdycji"><?php echo $this->formularz->dokumentRodzaj; ?></td>
+  <td class="dePoleOpisu"><p class="deOpisPolaEdycji">
+  Wybierz odpowiedni rodzaj dokumentu.
+  </p></td>
+</tr>
+<tr>
+  <td class="dePoleEdycji"><?php echo $this->formularz->dokumentIsbn; ?></td>
+  <td class="dePoleOpisu"><p class="deOpisPolaEdycji">
+  Wprowadź poprawny numer ISBN.
+  </p></td>
+</tr>
+<tr>
+  <td class="dePoleEdycji"><?php echo $this->formularz->dokumentWydawnictwo; ?></td>
+  <td class="dePoleOpisu"><p class="deOpisPolaEdycji">
+  Wprowadź nazwę Wydawnictwa dokumentu (max. <b>100</b> znaków).
+  </p></td>
+</tr>
+<tr>
+  <td class="dePoleEdycji"><?php echo $this->formularz->dokumentRokWydania; ?></td>
+  <td class="dePoleOpisu"><p class="deOpisPolaEdycji">
+  Wprowadź 4-ro cyfrowy rok wydania dokumentu.
+  </p></td>
+</tr>
+<tr>
+  <td class="dePoleEdycji"><?php echo $this->formularz->dokumentTagi; ?></td>
+  <td class="dePoleOpisu"><p class="deOpisPolaEdycji">
+  Wprowadź tagi dla dokumentu (max <b>150</b> znaków).
+  </p></td>
+</tr>
+<tr>
+  <td class="dePoleEdycji"><?php echo $this->formularz->dokumentOpis; ?></td>
+  <td class="dePoleOpisu"><p class="deOpisPolaEdycji">
+  Wprowadź opis dla dokumentu (max <b>300</b> znaków).
+  </p></td>
+</tr>
+<tr>
+  <td class="dePoleEdycji"><?php echo $this->formularz->dokumentDostepnosc; ?></td>
+  <td class="dePoleOpisu"><p class="deOpisPolaEdycji">
+  Wybierz sposób udostępniania dokumentu.
+  </p></td>
+</tr>
+<tr>
+  <td class="dePoleEdycji"><?php echo $this->formularz->reset; ?>
+  <?php echo $this->formularz->submit; ?></td>
+  <td class="dePoleOpisu"><p class="deOpisPolaEdycji">
+  Zapisz lub wyczyść wprowadzone dane.
+  </p></td>
+</tr>
+
+</table>
+
+</form>

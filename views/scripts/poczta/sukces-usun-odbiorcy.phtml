@@ -1,0 +1,39 @@
+<?php
+require_once "Autoryzacja/Autoryzacja.php";
+$sesja = Autoryzacja::kontynuujSesje();
+
+$this->headTitle("CzytajWNET.pl - Edycja listy odbiorców");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/poczta/lista-odbiorcow.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/wiadomosciUzytkownika.css');
+
+if(!$this->bledy){
+  if($this->zmiany){
+?>
+
+
+    <?php 
+    //dane do testów
+    /**********************************
+    foreach($this->dane as $d => $w){
+      echo $d . " => " . $w . "<br />";
+    }
+    echo $this->lista ."<br />";
+    ***********************************/
+    ?>
+    
+    <h3>Dane odbiorców zaktualizowano pomyślnie.</h3>
+
+<?php
+  }else{
+?>
+
+    <h3>Dane odbiorców pozostały bez zmian.</h3>
+
+<?php
+  }
+}else{?>
+
+  <h3>Podczas zapisu danych wystąpił błąd.</h3>
+
+<?php
+}?>

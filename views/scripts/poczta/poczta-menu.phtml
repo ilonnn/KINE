@@ -1,0 +1,71 @@
+<?php
+
+$this->headTitle("CzytajWNET.pl - Menu Wiadomości");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/podMenu.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/wiadomosciUzytkownika.css');
+
+
+?>
+
+<table class="profilMenu">
+<tr>
+  <td class="pmPolecenieIkona">
+  <a id="nowaWiadomosc" href ="<?php echo $this->url(array( 'controller' => 'poczta', 'action' => 'napisz-wiadomosc' ), 'default', true ); ?>"></a>
+  </td>
+  <td class="pmPolecenieLacze">
+    <a href ="<?php echo $this->url(array( 'controller' => 'poczta', 'action' => 'napisz-wiadomosc' ), 'default', true ); ?>">
+    Napisz</a>
+  </td>
+  <td class="pmPolecenieOpis">
+    Umożliwia wysłanie wiadomości w obrębie serwisu.
+  </td>
+</tr>
+<tr>
+  <td class="pmPolecenieIkona">
+  <a id="nieprzeczytane" href ="<?php echo $this->url(array( 'controller' => 'poczta', 'action' => 'pokaz-nowe' ), 'default', true ); ?>"></a>
+  </td>
+  <td class="pmPolecenieLacze">
+    <a href ="<?php echo $this->url(array( 'controller' => 'poczta', 'action' => 'pokaz-nowe' ), 'default', true ); ?>">
+    Nowe wiadomości</a>
+  </td>
+  <td class="pmPolecenieOpis">
+    Wyświetla Twoje nowe, nieprzeczytane wiadomości.
+  </td>
+</tr>
+<tr>
+  <td class="pmPolecenieIkona">
+  <a id="przeczytane" href ="<?php echo $this->url(array( 'controller' => 'poczta', 'action' => 'pokaz-przeczytane' ), 'default', true ); ?>"></a>
+  </td>
+  <td class="pmPolecenieLacze">
+    <a href ="<?php echo $this->url(array( 'controller' => 'poczta', 'action' => 'pokaz-przeczytane' ), 'default', true ); ?>">
+    Skrzynka odbiorcza</a>
+  </td>
+  <td class="pmPolecenieOpis">
+    Wyświetla Twoje przeczytane wiadomości.
+  </td>
+</tr>
+<tr>
+  <td class="pmPolecenieIkona">
+  <a id="wyslane" href ="<?php echo $this->url(array( 'controller' => 'poczta', 'action' => 'pokaz-wyslane' ), 'default', true ); ?>"></a>
+  </td>
+  <td class="pmPolecenieLacze">
+    <a href ="<?php echo $this->url(array( 'controller' => 'poczta', 'action' => 'pokaz-wyslane' ), 'default', true ); ?>">
+    Wysłane wiadomości</a>
+  </td>
+  <td class="pmPolecenieOpis">
+    Wyświetla wysłane przez Ciebie wiadomości.
+  </td>
+</tr>
+<tr>
+  <td class="pmPolecenieIkona">
+  <a id="odbiorcyIkona" href ="<?php echo $this->url(array( 'controller' => 'poczta', 'action' => 'lista-odbiorcow' ), 'default', true ); ?>"></a>
+  </td>
+  <td class="pmPolecenieLacze">
+    <a href ="<?php echo $this->url(array( 'controller' => 'poczta', 'action' => 'lista-odbiorcow' ), 'default', true ); ?>">
+    Odbiorcy wiadomości</a>
+  </td>
+  <td class="pmPolecenieOpis">
+    Wyświetla listę Twoich odbiorców z możliwością edycji.
+  </td>
+</tr>
+</table>

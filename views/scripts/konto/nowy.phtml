@@ -1,0 +1,25 @@
+<?php
+$this->headTitle("CzytajWNET.pl - Nowe Konto");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/konto/nowy.css');
+?>
+
+<table class="kontoNowy">
+<tr>
+  <td class="knLewa">
+  
+  <h3>Tworzenie nowego konta</h3>
+
+    <?php
+    echo $this->formularz;
+    ?>
+  </td>
+  
+  <td class="knPrawa">
+    <p>Aby założyć nowe konto w serwisie <b>CzytajWNET.pl</b> wystarczy
+    wypełnić formularz widoczny po lewej stronie. Te minimum wymaganych
+    informacji zapewni Ci komfortowy i bezpieczny dostęp do wielu
+    cennych publikacji oraz pozwoli na dzielenie się wiedzą z innymi
+    Użytkownikami serwisu.</b></p>
+  </td>
+</tr>
+</table>

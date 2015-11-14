@@ -1,0 +1,43 @@
+<?php
+require_once "Autoryzacja/Autoryzacja.php";
+$sesja = Autoryzacja::kontynuujSesje();
+
+$this->headTitle("CzytajWNET.pl - Pobieranie dokumentu");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/dokumenty/dokument-pobierz.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/dokumentyUzytkownika.css');
+
+if($this->bledy){
+?>
+
+<h3>Pobieranie pliku: "<?php echo trim($sesja->tytulDok, "\'"); ?>"</h3>
+
+<p class="komunikat">Uzupełnij brakujące dane:</p>
+
+<form action="<?php echo $this->formuPob->getAction(); ?>"
+  method="<?php echo $this->formuPob->getMethod(); ?>">
+
+<table id="dpPobieranieDokumentu">
+  <tr>
+    <td class="dpKolumnaLewa"><?php echo $this->formuPob->pobieraniePliku; ?></td>
+    <td class="dpKolumnaPrawa"><?php echo $this->formuPob->submit; ?></td>
+  </tr>
+</table>
+
+</form>
+
+<?php
+} 
+else{?>
+
+<p class="komunikat">
+Jeśli widzisz ten komunikat, oznacza to, że wystąpił błąd uniemożliwiający
+pobranie pliku. Przepraszamy za utrudnienia.
+</p>
+
+
+<?php
+}?>
+
+
+
+

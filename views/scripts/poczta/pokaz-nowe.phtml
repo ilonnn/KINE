@@ -1,0 +1,55 @@
+<?php
+require_once "Autoryzacja/Autoryzacja.php";
+$sesja = Autoryzacja::kontynuujSesje();
+
+$this->headTitle("CzytajWNET.pl - Nieprzeczytane wiadomości");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/poczta/pokaz-nowe.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/wiadomosciUzytkownika.css');
+
+if(!empty($this->noweWiadomosci)){
+  $suma = count($this->noweWiadomosci);
+?>
+
+<h3>Twoje nowe wiadomości</h3>
+
+<p class="poNwSuma">( łącznie: <?php echo $suma; ?> )</p>
+
+<table id="poNoweWiadomosci">
+
+<tr>
+  <th class="poNwLp">Lp.</th>
+  <th class="poNwNadawca">od</th>
+  <th class="poNwTemat">temat</th>
+  <th class="poNwWyslano">data wysłania</th>
+</tr>
+
+<?php 
+$i = 1;
+foreach($this->noweWiadomosci as $wiad){?>
+
+<tr>
+  <td class="poNwLp"><?php echo $i;?></td>
+  <td class="poNwNadawca">
+    <a href ="<?php echo $this->url(array( 'controller' => 'profil', 'action' => 'pokaz-publiczny-profil', 'uzytkownik' => $wiad['login']  ), 'default', true ); ?>">
+      <?php echo trim($wiad['login'], "\'");?>
+  </a></td>
+  <td class="poNwTemat">
+    <a href ="<?php echo $this->url(array( 'controller' => 'poczta', 'action' => 'pokaz-wiadomosc', 'wiadomosc' => $wiad['wiad_id'] ), 'default', true ); ?>">
+      <?php echo trim($wiad['temat'], "\'");?>
+  </a></td>
+  <td class="poNwWyslano"><?php echo trim($wiad['wyslano'], "\'");?></td>
+</tr>
+
+<?php
+  $i++;
+}?>
+
+</table>
+
+<?php 
+}else{?>
+
+<h3>Brak nowych wiadomości</h3>
+
+<?php
+}?>

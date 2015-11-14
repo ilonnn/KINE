@@ -1,0 +1,41 @@
+<?php
+require_once "Autoryzacja/Autoryzacja.php";
+$sesja = Autoryzacja::kontynuujSesje();
+
+$this->headTitle("CzytajWNET.pl - Edycja Profilu");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/profil/profilEdytuj.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/profilUzytkownika.css');
+
+if($this->bledy){?>
+  <table id="peFormularzEdycji">
+  <tr>
+    <td id="peKolumnaLewa">
+    <h3>Formularz zawiera błędy:</h3>
+    <?php echo $this->formularz; ?>
+    </td>
+    <td id="peKolumnaPrawa">
+    <p>Pola umieszczone po lewej stronie odpowiadają informacjom o Twoim profilu 
+    w serwisie <b>CzytajWNET.pl</b>. Ich wypełnianie jest opcjonalne i zależy
+    wyłącznie od Ciebie. Twoje dane nie są publicznie dostępne. Służą jedynie
+    lepszej komunikacji pomiędzy Użytkownikami niniejszego serwisu. 
+    </p>
+    <p>Dane takie jak <b>email</b> i <b>login</b> nie są edytowalne. Ich wartości,
+    ustawionej w trakcie tworzenia nowego konta, nie można zmienić.
+    </p>
+    </td>
+  </tr>
+</table>
+
+<?php }else{ ?>
+
+  <h3>Dane zaktualizowano pomyślnie.</h3>
+  <p>
+  <a href="<?php echo $this->url(array( 'controller' => 'profil', 'action' => 'profil-pokaz' ) ); ?>">
+  Pokaż moje nowe dane
+  </a>
+  </p>
+<?php
+} 
+?>
+
+

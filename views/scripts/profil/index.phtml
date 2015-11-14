@@ -1,0 +1,14 @@
+<?php
+//kontynuacja sesji logowania
+require_once "Autoryzacja/Autoryzacja.php";
+$sesjaLogowania = Autoryzacja::kontynuujSesje();
+
+$this->headTitle("CzytajWNET.pl - Twój Profil");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/konto/profil.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/profilUzytkownika.css');
+
+?>
+
+<h3>Witaj <?php echo $sesjaLogowania->login; ?> </h3>
+
+<p>Twoje dane:</p>

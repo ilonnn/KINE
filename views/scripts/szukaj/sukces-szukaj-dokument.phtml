@@ -1,0 +1,70 @@
+<?php
+require_once "Autoryzacja/Autoryzacja.php";
+$sesja = Autoryzacja::kontynuujSesje();
+
+$this->headTitle("CzytajWNET.pl - Wyniki wyszukiwania");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/szukaj/sukces-szukaj-dokument.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/szukaj.css');
+
+if($this->bledy){
+?>
+
+  <h3>Niepoprawne dane wyszukiwania</h3>
+  <table id="wynikiWyszukiwania">
+
+  <form action="<?php echo $this->formularz->getAction(); ?>"
+    method="<?php echo $this->formularz->getMethod(); ?>">
+  
+  <tr>
+    <td colspan="2">
+      <?php echo $this->formularz->wyszukajDokument; ?>
+    </td>
+    <td>
+      <?php echo $this->formularz->submit; ?>
+    </td>
+  </tr>
+  
+  </form>
+  
+  </table>
+
+<?php
+} else{?>
+
+  <h3>Wyniki dla frazy: "<?php echo $this->fraza; ?>"</h3>
+  
+  <p class="szDoZnaleziono">Znalezionych dokumentów: <b><?php echo count($this->wyniki);?></b></p>
+  
+  <table id="wynikiWyszukiwania">
+    <th class="szDokLp">Lp.</th>
+    <th class="szDokTytul">Tytuł</th>
+    <th class="szDokAutor">Autor</th>
+  
+  <?php 
+  if(count($this->wyniki) > 0){
+    $i = 1;
+    foreach($this->wyniki as $wynik){ ?>
+    
+      <tr>
+        <td class="szDokLp"><?php echo $i;?></td>
+        <td class="szDokTytul">
+          <a href="<?php echo $this->url(array( 'controller' => 'dokumenty', 'action' => 'dokument-info', 'dokument' => $wynik->idBazy ), 'default', true ); ?>">
+        <?php echo $wynik->tytul; ?></a></td>
+          
+        
+        <td class="szDokAutor"><?php echo $wynik->autor;
+                                     //echo "<br />(". $wynik->idBazy.")"; 
+                              ?></td>
+      </tr>
+
+<?php
+      $i++;
+    }
+  }
+} ?>
+  </table>
+  
+<p class="szDoZnaleziono">
+  <?php echo $this->dostepnych; ?> 
+  (<?php echo $this->ogolem;?>)
+</p>  

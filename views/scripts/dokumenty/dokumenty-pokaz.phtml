@@ -1,0 +1,65 @@
+<?php
+require_once "Autoryzacja/Autoryzacja.php";
+$sesja = Autoryzacja::kontynuujSesje();
+
+$this->headTitle("CzytajWNET.pl - Twoje dokumenty");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/dokumenty/dokumenty-pokaz.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/dokumentyUzytkownika.css');
+
+?>
+
+
+<h3 class="index">Twoje dokumenty</h3>
+
+<table id="dokumenty">
+
+<tr>
+  <th class="dpNaglowekTabeli">Lp.</th>
+  <th class="dpNaglowekTabeli">Tytuł</th>
+  <th class="dpNaglowekTabeli">Autor</th>
+  <th class="dpNaglowekTabeli">Operacje</th>
+  <th class="dpNaglowekTabeli">Przedmiot</th>
+  <th class="dpNaglowekTabeli">Rodzaj</th>
+  <th class="dpNaglowekTabeli">Wydawnictwo</th>
+  <th class="dpNaglowekTabeli">Rok wydania</th>
+  <th class="dpNaglowekTabeli">ISBN</th>
+  <th class="dpNaglowekTabeli">Opis</th>
+  <th class="dpNaglowekTabeli">Tagi</th>
+  <th class="dpNaglowekTabeli">Dostępność</th>
+  <th class="dpNaglowekTabeli">Wyświetleń</th>
+  <th class="dpNaglowekTabeli">Dodany</th>
+  <th class="dpNaglowekTabeli">Zmodyfikowany</th>
+</tr>
+
+<?php
+$Lp = 1;
+foreach($this->dokumenty as $dok){?>
+
+
+<tr>
+  <td class="dpLp"><?php echo $Lp;?></td>
+  <td class="dpTytul"><?php echo stripslashes(trim($dok['tytuł'], "\'")); ?></td>
+  <td class="dpAutor"><?php echo stripslashes(trim($dok['autor'], "\'")); ?></td>
+  <td class="dpOperacje">
+    <a id="dokumentCzytaj" title="czytaj" href="<?php echo $this->url(array( 'controller' => 'dokumenty', 'action' => 'dokumenty-czytaj', 'dokument' => $dok['id'] ), 'default', true ); ?>"></a>
+    <a id="dokumentPobierz" title="pobierz" href="<?php echo $this->url(array( 'controller' => 'dokumenty', 'action' => 'dokument-pobierz', 'dok' => $dok['id'] ), 'default', true ); ?>"></a>
+  </td>
+  <td class="dpPrzedmiot"><?php echo stripslashes(trim($dok['przedmiot'], "\'")); ?></td>
+  <td class="dpRodzaj"><?php echo stripslashes(trim($dok['rodzaj'], "\'")); ?></td>
+  <td class="dpWydawnictwo"><?php echo stripslashes(trim($dok['wydawnictwo'], "\'")); ?></td>
+  <td class="dpRokWyd"><?php echo stripslashes(trim($dok['rok wydania'], "\'")); ?></td>
+  <td class="dpIsbn"><?php echo stripslashes(trim($dok['isbn'], "\'")); ?></td>
+  <td class="dpOpis"><?php echo stripslashes(trim($dok['opis'], "\'")); ?></td>
+  <td class="dpTagi"><?php echo stripslashes(trim($dok['tagi'], "\'")); ?></td>
+  <td class="dpDostepnosc"><?php echo stripslashes(trim($dok['dostępność'], "\'")); ?></td>
+  <td class="dpWyswietlen"><?php echo stripslashes(trim($dok['wyświetleń'], "\'")); ?></td>
+  <td class="dpDodany"><?php echo stripslashes(trim($dok['data dodania'], "\'")); ?></td>
+  <td class="dpZmodyfikowany"><?php echo stripslashes(trim($dok['ostatnia modyfikacja'], "\'")); ?></td>
+</tr>
+
+<?php 
+$Lp++;
+} ?>
+</table>
+
+

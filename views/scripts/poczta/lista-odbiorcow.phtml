@@ -1,0 +1,42 @@
+<?php
+require_once "Autoryzacja/Autoryzacja.php";
+$sesja = Autoryzacja::kontynuujSesje();
+
+$this->headTitle("CzytajWNET.pl - Lista Odbiorców wiadomości");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/poczta/lista-odbiorcow.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/wiadomosciUzytkownika.css');
+
+?>
+
+
+<table id="pdListaOdbiorcow">
+
+<form action="<?php echo $this->formularz->getAction(); ?>"
+  method="<?php echo $this->formularz->getMethod(); ?>">
+
+<tr>
+  <th class="poLoLp">Lp.</th>
+  <th class="poLoOdbiorca">Nazwa odbiorcy</th>
+</tr>
+
+<?php 
+$i =1;
+foreach($this->formularz as $element){
+?>
+
+  <?php if($element != $this->formularz->submit){ ?>
+<tr>
+  <td class="poLoLp"><?php echo $i; ?></td>
+  <td class="poLoOdbiorca"><?php echo $element; ?></td>
+</tr>
+  <?php }else{?>
+<tr>
+  <td class="poLoOdbiorca" colspan="2"><?php echo $element; ?></td>
+</tr>
+<?php
+  }
+  $i++;
+}?>
+</form>
+
+</table>

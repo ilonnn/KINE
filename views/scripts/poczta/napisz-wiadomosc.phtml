@@ -1,0 +1,56 @@
+<?php
+require_once "Autoryzacja/Autoryzacja.php";
+$sesja = Autoryzacja::kontynuujSesje();
+
+$this->headTitle("CzytajWNET.pl - Nowa wiadomość");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/poczta/napisz-wiadomosc.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/wiadomosciUzytkownika.css');
+
+if(!$this->bledy){
+?>
+
+
+<h3>Nowa wiadomość</h3>
+
+<table id="poNapiszWiadomosc">
+
+<form action="<?php echo $this->formularz->getAction(); ?>"
+  method="<?php echo $this->formularz->getMethod(); ?>">
+
+
+  <tr>
+    <td class="poKolumnaLewa"><?php echo $this->formularz->odbiorcy; ?></td>
+    <td class="poKolumnaPrawa" rowspan="4">
+      <p>Aby wysłać wiadomość wystarczy wybrać odpowieniego odbiorcę i uzupełnić
+      pozostałe pola.
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td class="poKolumnaLewa"><?php echo $this->formularz->tematWiadomosci; ?></td>
+  </tr>
+  <tr>
+    <td class="poKolumnaLewa"><?php echo $this->formularz->trescWiadomosci; ?></td>
+  </tr>
+  <tr>
+    <td class="poKolumnaLewa"><?php echo $this->formularz->submit; ?></td>
+  </tr>
+
+</form>
+
+</table>  
+  
+<?php
+}else{?>
+
+<h3>Przepraszamy</h3>
+
+<p class="komunikat">
+  Jeśli widzisz ten komunikat, oznacza to, że najprawdopodobniej nie zdefiniowałeś
+  żadnego odbiorcy. Skorzystaj z wyszukiwarki Użytkowników, aby uzupełnić listę
+  odbiorców Twoich wiadomości.
+</p>
+
+<?php
+}
+?>

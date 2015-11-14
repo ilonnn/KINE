@@ -1,0 +1,31 @@
+<?php
+require_once "Autoryzacja/Autoryzacja.php";
+$sesja = Autoryzacja::kontynuujSesje();
+
+$this->headTitle("CzytajWNET.pl - Wyszukiwanie dokumentów");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/szukaj/sukces-szukaj-dokument.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/szukaj.css');
+
+?>
+
+<h3>Wprowadź dane dokumentu:</h3>
+
+<table id="wynikiWyszukiwania">
+
+<form action="<?php echo $this->formularz->getAction(); ?>"
+  method="<?php echo $this->formularz->getMethod(); ?>">
+
+<tr>
+  <td colspan="2">
+    <?php echo $this->formularz->wyszukajDokument; ?>
+  </td>
+  <td>
+    <?php echo $this->formularz->submit; ?>
+  </td>
+</tr>
+
+</form>
+
+</table>
+
+

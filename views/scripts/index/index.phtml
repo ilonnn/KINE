@@ -1,0 +1,85 @@
+<?php
+require_once "Autoryzacja/Autoryzacja.php";
+$sesja = Autoryzacja::kontynuujSesje();
+
+$this->headTitle("CzytajWNET.pl - strona główna");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/index.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/index/newsletter.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/stronastartowa.css');
+
+if(!$sesja->zalogowany){
+?>
+
+<h3 class="index">CzytajWNET.pl</h3>
+
+<table class="indexLoguj">
+  <tr>
+    <td class="idKolumnaLewa"><a class="idIndeksGlowna" id="idLogowanie" href="konto/loguj"></a></td>
+    <td class="idKolumnaPrawa"><a class="idIndeksGlowna" id="idRejestracja" href="konto/nowy"></a></td>
+  </tr>
+  <tr>
+    <td class="idKolumnaLewa"><a href="konto/loguj">Logowanie</a></td>
+    <td class="idKolumnaPrawa"><a href="konto/nowy">Rejestracja</a></td>
+  </tr>
+</table>
+
+<?php
+} else{
+?>
+
+<h3 class="index">Najnowsze informacje</h3>
+
+<table id="newsy">
+
+  <?php
+  if($this->paginator){
+  ?>
+  
+  <tr align="center">
+    <td colspan="3">
+      <?php echo $this->paginationControl($this->paginator,'Sliding',
+            'layout/paginacja.phtml');?>
+    </td>
+  </tr>
+  
+  <tr>
+    <th class="typZdarzenia">Typ</th>
+    <th class="opisZdarzenia">Opis</th>
+    <th class="dataZdarzenia">Data</th>
+  </tr>
+  
+  <?php
+  foreach($this->paginator as $news){?>
+    
+  <tr>
+    <td class="typZdarzenia"><?php echo trim($news['temat'], "\'"); ?></td>
+    <td class="opisZdarzenia"><?php echo trim($news['tresc'], "\'"); ?></td>
+    <td class="dataZdarzenia"><?php echo trim($news['data'], "\'"); ?></td>
+  </tr>
+    
+  <?php
+  } ?>
+  
+  <tr align="center">
+    <td colspan="3">
+      <?php echo $this->paginationControl($this->paginator,'Sliding',
+            'layout/paginacja.phtml');?>
+    </td>
+  </tr>
+  
+  <?php
+  }//end of if($this->paginator)
+  else{ ?>
+  
+    <tr>
+      <td colspan="3">
+        Brak informacji o ostatnich zdarzeniach.
+      </td>
+    </tr>
+    
+<?php
+  }
+}
+?>
+      
+</table>

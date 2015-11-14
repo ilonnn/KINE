@@ -1,0 +1,48 @@
+<?php
+//Kontynuacja sesji logowania
+$sesjaLogowania = new Zend_Session_Namespace('logowanie');
+?>
+
+<div id="logo"></div>
+<div id="naglowekLaczaPrawyDol">
+  
+  <?php
+  //Wyświetlenie elementów dla zalogowanych Użytkowników
+  if($sesjaLogowania->zalogowany){ ?>
+  
+  
+  
+  <div class="naglowekLacza">
+    <p>
+      witaj <a href="<?php echo $this->url(array( 'controller' => 'profil', 'action' => 'profil-pokaz' ), 'default', true ); ?>">
+      <?php echo $sesjaLogowania->login; ?></a>
+    </p>
+  </div>
+  
+  <div class="naglowekLacza">
+    <p>
+      <a href="<?php echo $this->url(array( 'controller' => 'konto', 'action' => 'wyloguj' ), 'default', true ); ?>">
+      wyloguj</a>
+    </p>
+  </div>
+  
+  <?php 
+  } //koniec if($sesjaLogowania->zalogowany)
+  else{ ?>
+  
+  <div class="naglowekLacza">
+    <p>
+      <a href="<?php echo $this->url(array( 'controller' => 'konto', 'action' => 'loguj' ), 'default', true ); ?>">
+      zaloguj</a>
+    </p>
+  </div>
+  <div class="naglowekLacza">
+    <p>
+      <a href="<?php echo $this->url(array( 'controller' => 'konto', 'action' => 'nowy' ), 'default', true ); ?>">
+      nowe konto</a>
+    </p>
+  </div>
+  
+  <?php } //koniec else ?>
+
+</div>

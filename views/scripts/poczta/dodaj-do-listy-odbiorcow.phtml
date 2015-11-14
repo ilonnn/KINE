@@ -1,0 +1,26 @@
+<?php
+require_once "Autoryzacja/Autoryzacja.php";
+$sesja = Autoryzacja::kontynuujSesje();
+
+$this->headTitle("CzytajWNET.pl - Edycja listy odbiorców");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/poczta/lista-odbiorcow.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/wiadomosciUzytkownika.css');
+
+if(!$this->bledy){
+
+?>
+<h3>Odbiorca: "<?php echo $this->nowyOdbiorca; ?>" został pomyślnie dodany do Twojej listy.</h3>
+<?php
+}else if(isset($this->odbiorcaIstnieje)){
+?>
+
+<h3>Odbiorca: "<?php echo $this->nowyOdbiorca; ?>" jest już na Twojej liście.</h3>
+
+<?php
+}else{?>
+
+<h3>Wystąpił błąd.</h3>
+
+<?php
+}?>
+

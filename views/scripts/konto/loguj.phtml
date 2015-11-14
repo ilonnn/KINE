@@ -1,0 +1,25 @@
+<?php
+$this->headTitle("CzytajWNET.pl - Logowanie");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/konto/loguj.css');
+
+?>
+
+<table class="logowanie">
+<tr>
+  <td class="kolumnaLewa">
+    <?php
+    if($this->komunikat){
+      echo "<p class=\"komunikat\">". $this->komunikat ."</p>";
+    } 
+    //Formularz bez captcha
+    echo $this->formularz; 
+    ?>
+  </td>
+  <td class="kolumnaPrawa">
+    <p>Aby zalogować się na osobiste konto <b>CzytajWNET.pl</b>, należy wpisać 
+    w odpowiednie pola formularza dane, użyte w procesie tworzenia nowego konta.     
+    </p>
+  </td>
+</tr>
+</table>
+

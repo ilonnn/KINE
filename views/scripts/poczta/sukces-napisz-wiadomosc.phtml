@@ -1,0 +1,55 @@
+<?php
+require_once "Autoryzacja/Autoryzacja.php";
+$sesja = Autoryzacja::kontynuujSesje();
+
+$this->headTitle("CzytajWNET.pl - Nowa wiadomość");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/poczta/napisz-wiadomosc.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/wiadomosciUzytkownika.css');
+
+if(!$this->bledy){
+?>
+
+
+<h3>Wiadomość została wysłana</h3>
+  
+<?php
+}else{?>
+
+<h3>Nowa wiadomość</h3>
+
+<table id="poNapiszWiadomosc">
+
+<form action="<?php echo $this->formularz->getAction(); ?>"
+  method="<?php echo $this->formularz->getMethod(); ?>">
+
+
+  <tr>
+    <td class="poKolumnaLewa" colspan="2">
+      <p class="komunikat">Uzupełnij brakujące informacje:
+    </p></td>
+  </tr>
+  <tr>
+    <td class="poKolumnaLewa"><?php echo $this->formularz->odbiorcy; ?></td>
+    <td class="poKolumnaPrawa" rowspan="4">
+      Aby wysłać wiadomość wystarczy wybrać odpowieniego odbiorcę i uzupełnić
+      widoczne pola.
+    </td>
+  </tr>
+  <tr>
+    <td class="poKolumnaLewa"><?php echo $this->formularz->tematWiadomosci; ?></td>
+  </tr>
+  <tr>
+    <td class="poKolumnaLewa"><?php echo $this->formularz->trescWiadomosci; ?></td>
+  </tr>
+  <tr>
+    <td class="poKolumnaLewa"><?php echo $this->formularz->submit; ?></td>
+  </tr>
+
+</form>
+
+</table>  
+
+
+<?php
+}
+?>

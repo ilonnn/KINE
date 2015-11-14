@@ -1,0 +1,85 @@
+<?php
+require_once "Autoryzacja/Autoryzacja.php";
+$sesja = Autoryzacja::kontynuujSesje();
+
+$this->headTitle("CzytajWNET.pl - Usuwanie dokumentów");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/dokumenty/dokumenty-usun.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/dokumentyUzytkownika.css');
+
+if($this->bledy){
+?>
+
+<h3>Wystąpiły błędy. Spróbuj ponownie.</h3>
+
+<table id="duFormUsuwaniaDok">
+
+<tr>
+  <th class="duNaglowekTabeli">Lp.</th>
+  <th id="duNaglowekTabeliSrodek" class="duNaglowekTabeli">Zaznacz</th>
+  <th class="duNaglowekTabeli">Tytuł</th>
+</tr>
+
+<form action="<?php echo $this->formularz->getAction(); ?>"
+  method="<?php echo $this->formularz->getMethod(); ?>">
+  
+<?php 
+$i = 1;
+foreach($this->daneDokumentow as $id => $tytul){ ?>
+
+<tr>
+  <td class="duLp"><?php echo $i;  ?></td>
+  <td class="duCheckbox"><?php echo $this->formularz->$id ?></td>
+  <td class="duTytul"><?php echo $tytul; $i++; ?></td>
+</tr>  
+
+<?php } ?>
+
+<tr>
+  <td colspan="2" id="duOdznacz"><?php echo $this->formularz->reset; ?></td>
+  <td id="duUsun"><?php echo $this->formularz->submit; ?></td>
+</tr>
+
+</form>
+
+</table>
+
+<?php } 
+else{
+
+  if(empty($this->podsumowanie)){
+
+?>
+
+  <h3>Nie usunięto żadnych plików</h3>
+
+<?php }
+  else{
+  ?>
+  
+  <h3>Podsumowanie usuwania</h3>
+  
+  <?php 
+    foreach($this->podsumowanie as $id => $info){
+
+      echo $info."<br />";  
+
+    }
+  }
+  
+  if(!empty($this->bledySerwera)){ ?>
+    
+    <h4>Błędy usunięcia plików z serwera</h4>
+
+  <?php 
+  
+    foreach($this->bledySerwera as $blad){
+    
+      echo $blad."<br />";
+    
+    }
+  
+  }
+  
+}
+
+?>

@@ -1,0 +1,63 @@
+<?php
+require_once "Autoryzacja/Autoryzacja.php";
+$sesja = Autoryzacja::kontynuujSesje();
+
+$this->headTitle("CzytajWNET.pl - Twoje Dane");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/profil/profilPokaz.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/profilUzytkownika.css');
+?>
+
+<h3>Informacje o Tobie</h3>
+
+<table class="profilPokaz">
+<tr>
+  <td class="ppInfo">
+    <b>email</b>
+  </td>
+  <td class="ppWartosc">
+    <?php echo "<i>". trim($sesja->email, "\'") ."</i>"; ?>
+  </td>
+</tr>
+<tr>
+  <td class="ppInfo">
+    <b>login</b>
+  </td>
+  <td class="ppWartosc">
+    <?php echo "<i>". trim($sesja->login,"\'") ."</i>"; ?>
+  </td>
+</tr>
+<?php
+
+//pobranie danych o Użytkowniku
+$dane = $this->daneUzytkownika;
+foreach( $dane[0] as $nazwa => $wartosc){
+  $wartosc = trim($wartosc, "\'");
+?>
+
+
+<tr>
+  <td class="ppInfo">
+    <?php echo "<b>".$nazwa."</b>"; ?>
+  </td>
+  <td class="ppWartosc">
+    <?php
+    if(empty($wartosc)){
+      echo "<i>brak</i>";
+    }elseif($nazwa == "avatar"){
+
+      //obrazek z katalogu: public/uzytk/[id]/avatar/[id]_av.[ext]
+      echo "<img src=\"". $this->baseUrl() ."/uzytk/". $sesja->id ."/avatar/". $wartosc ."\" />";
+      
+    }else{
+      echo $wartosc;
+    }
+    ?>  
+  </td>
+</tr>
+
+
+<?php
+} //koniec foreach( $dane[0] as $nazwa => $wartosc)
+?>
+
+</table>

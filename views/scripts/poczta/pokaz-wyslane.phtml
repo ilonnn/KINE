@@ -1,0 +1,60 @@
+<?php
+require_once "Autoryzacja/Autoryzacja.php";
+$sesja = Autoryzacja::kontynuujSesje();
+
+$this->headTitle("CzytajWNET.pl - Wysłane wiadomości");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/poczta/pokaz-nowe.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/wiadomosciUzytkownika.css');
+
+if(!empty($this->wyslaneWiadomosci)){
+  $suma = count($this->wyslaneWiadomosci);
+?>
+
+<h3>Twoje wysłane wiadomości</h3>
+
+<p class="poNwSuma">( łącznie: <?php echo $suma; ?> )</p>
+
+<table id="poNoweWiadomosci">
+
+<tr>
+  <th class="poNwLp">Lp.</th>
+  <th class="poNwNadawca">od</th>
+  <th class="poNwNadawca">Do</th>
+  <th class="poNwTemat">temat</th>
+  <th class="poNwWyslano">data wysłania</th>
+</tr>
+
+<?php 
+$i = 1;
+foreach($this->wyslaneWiadomosci as $wiad){?>
+
+<tr>
+  <td class="poNwLp"><?php echo $i;?></td>
+  <td class="poNwNadawca">
+    <a href ="<?php echo $this->url(array( 'controller' => 'profil', 'action' => 'pokaz-publiczny-profil', 'uzytkownik' => $wiad['nadawca']  ), 'default', true ); ?>">
+      <?php echo trim($wiad['nadawca'], "\'");?>
+  </a></td>
+  <td class="poNwNadawca">
+    <a href ="<?php echo $this->url(array( 'controller' => 'profil', 'action' => 'pokaz-publiczny-profil', 'uzytkownik' => $wiad['odbiorca'] ), 'default', true ); ?>">
+      <?php echo trim($wiad['odbiorca'], "\'");?>
+  </a></td>
+  <td class="poNwTemat">
+    <a href ="<?php echo $this->url(array( 'controller' => 'poczta', 'action' => 'pokaz-wiadomosc', 'wiadomosc' => $wiad['wiad_id'] ), 'default', true ); ?>">
+      <?php echo trim($wiad['temat'], "\'");?>
+  </a></td>
+  <td class="poNwWyslano"><?php echo trim($wiad['wyslano'], "\'");?></td>
+</tr>
+
+<?php
+  $i++;
+}?>
+
+</table>
+
+<?php 
+}else{?>
+
+<h3>Brak nowych wiadomości</h3>
+
+<?php
+}?>

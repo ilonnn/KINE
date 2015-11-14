@@ -1,0 +1,67 @@
+<?php
+require_once "Autoryzacja/Autoryzacja.php";
+$sesja = Autoryzacja::kontynuujSesje();
+
+$this->headTitle("CzytajWNET.pl - Publiczny profil Użytkownika: ". $this->daneUzytkownika[0]['login']);
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/profil/profilPokaz.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/profilUzytkownika.css');
+
+if(!empty($this->daneUzytkownika)){
+?>
+
+<h3>Informacje o Użytkowniku: <?php echo $this->daneUzytkownika[0]['login'];?></h3>
+
+<table class="profilPokaz">
+
+<?php
+
+//pobranie danych o Użytkowniku
+$dane = $this->daneUzytkownika;
+foreach( $dane[0] as $nazwa => $wartosc){
+  $wartosc = trim($wartosc, "\'");
+  if( $nazwa != 'id' ){
+?>
+
+
+<tr>
+  <td class="ppInfo">
+    <?php echo "<b>".$nazwa."</b>"; ?>
+  </td>
+  <td class="ppWartosc">
+    <?php
+    if(empty($wartosc)){
+      echo "<i>brak</i>";
+    }elseif($nazwa == "avatar"){
+
+      //obrazek z katalogu: public/uzytk/[id]/avatar/[id]_av.[ext]
+      echo "<img src=\"". $this->baseUrl() ."/uzytk/". $this->daneUzytkownika[0]['id'] ."/avatar/". $wartosc ."\" alt=\"avatar\" />";
+      
+    }else{
+      echo $wartosc;
+    }
+    ?>  
+  </td>
+</tr>
+
+
+<?php
+  }
+} //koniec foreach( $dane[0] as $nazwa => $wartosc)
+?>
+
+<td class="ppInfo"><b>Operacje</b></td>
+<td class="ppWartosc">
+  <a href="<?php echo $this->url(array( 'controller' => 'poczta', 'action' => 'dodaj-do-listy-odbiorcow', 'uzytkownik' => $dane[0]['login']  ), 'default', true ); ?>">
+  Dodaj do listy odbiorców wiadomości</a>
+</td>
+
+</table>
+
+<?php
+}else{?>
+
+
+<h3>Użytkownik zablokował swoje dane.</h3>
+
+<?php 
+}?>

@@ -1,0 +1,46 @@
+<?php
+
+$this->headTitle("CzytajWNET.pl - Menu Profil");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/podMenu.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/profilUzytkownika.css');
+
+?>
+
+<table class="profilMenu">
+<tr>
+  <td class="pmPolecenieIkona">
+  <a id="pokazProfil" href ="<?php echo $this->url(array( 'controller' => 'profil', 'action' => 'profil-pokaz' ), 'default', true ); ?>"></a>
+  </td>
+  <td class="pmPolecenieLacze">
+    <a href ="<?php echo $this->url(array( 'controller' => 'profil', 'action' => 'profil-pokaz' ), 'default', true ); ?>">
+    Pokaż moje dane</a>
+  </td>
+  <td class="pmPolecenieOpis">
+    Wyświetla Twoje aktualne dane.
+  </td>
+</tr>
+<tr>
+  <td class="pmPolecenieIkona">
+  <a id="edytujProfil" href ="<?php echo $this->url(array( 'controller' => 'profil', 'action' => 'profil-edytuj' ), 'default', true ); ?>"></a>
+  </td>
+  <td class="pmPolecenieLacze">
+    <a href ="<?php echo $this->url(array( 'controller' => 'profil', 'action' => 'profil-edytuj' ), 'default', true ); ?>">
+    Edytuj moje dane</a>
+  </td>
+  <td class="pmPolecenieOpis">
+    Umożliwia edycję Twoich danych.
+  </td>
+</tr>
+<tr>
+  <td class="pmPolecenieIkona">
+  <a id="preferencjeKonta" href ="<?php echo $this->url(array( 'controller' => 'konto', 'action' => 'preferencje' ), 'default', true ); ?>"></a>
+  </td>
+  <td class="pmPolecenieLacze">
+    <a href ="<?php echo $this->url(array( 'controller' => 'konto', 'action' => 'preferencje' ), 'default', true ); ?>">
+    Preferencje konta</a>
+  </td>
+  <td class="pmPolecenieOpis">
+    Umożliwia edycję głównych ustawień Twojego konta.
+  </td>
+</tr>
+</table>

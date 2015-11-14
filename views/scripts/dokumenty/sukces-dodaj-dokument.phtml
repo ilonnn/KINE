@@ -1,0 +1,44 @@
+<?php
+require_once "Autoryzacja/Autoryzacja.php";
+$sesja = Autoryzacja::kontynuujSesje();
+
+$this->headTitle("CzytajWNET.pl - Dodawanie nowego dokumentu");
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/dokumenty/dokumenty-dodaj.css');
+$this->headLink()->appendStylesheet( $this->baseUrl() . '/css/layout/dokumentyUzytkownika.css');
+
+if($this->bledy){
+?>
+
+<h3>Formularz zawiera błędy:</h3>
+
+<table id="ddFormularzDodawaniaDokumentu">
+
+<tr>
+  <td id="ddKolumnaLewa">
+    <?php echo $this->formularz; 
+      echo "<br />".$this->mime."<br />";
+    ?>
+    
+  </td>
+  <td id="ddKolumnaPrawa">
+  <p>
+  Wybierz dokument, który ma zostać dodany do zasobów serwisu <b>CzytajWNET.pl</b>.
+  Uzupełnij podstawowe dane opisujące dodawany przez Ciebie dokument. Dodatkowe
+  opcje znajdziesz w menu edycji dokumentów.
+  </p>
+  <p>Pamiętaj o tym, aby nie naruszać <b>praw autorskich</b>.</p>
+  </td>
+</tr>
+
+</table>
+
+<?php }
+else{?>
+
+<h3>Dokument został dodany.</h3>
+
+<p><a href ="<?php echo $this->url(array( 'controller' => 'dokumenty', 'action' => 'dokumenty-dodaj' ) ); ?>">
+Dodaj kolejny dokument</a>
+</p>
+
+<?php }?>
